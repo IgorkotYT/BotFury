@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bot Command Center</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Bot Command Center</h1>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Send Custom Webhook Command</h2>
+            <input type="text" id="webhookMessage" placeholder="Enter custom command...">
+            <button onclick="sendWebhook()">Send Command</button>
+        </section>
+
+        <section>
+            <h2>Toggle Rendering</h2>
+            <button onclick="toggleRender()">Toggle Render</button>
+        </section>
+
+        <section>
+            <h2>Change Server IP</h2>
+            <input type="text" id="serverIP" value="{{ server_ip }}">
+            <button onclick="changeServerIP()">Set Server IP</button>
+        </section>
+
+        <section>
+            <h2>Bot Controls</h2>
+            <div>
+                {% for bot in bots %}
+                <div class="bot">
+                    <p><strong>{{ bot.name }}</strong> – Status: {{ bot.status }}</p>
+                    <button onclick="startBot({{ bot.id }})">Start</button>
+                    <button onclick="stopBot({{ bot.id }})">Stop</button>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Send Chat Message</h2>
+            <input type="text" id="chatMessage" placeholder="Enter chat message...">
+            <button onclick="sendChat()">Send Chat</button>
+        </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

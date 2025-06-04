@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "botfury",
+  "version": "${version}",
+  "name": "BotFury",
+  "description": "Minimal remote-control mod.",
+  "authors": ["BotFury"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.botfury.BotFuryMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": "1.20.1"
+  }
+}

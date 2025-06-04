@@ -57,6 +57,7 @@ cd BotFury
    ```
 2. Start the Flask server:
    ```bash
+   cd flask-dashboard
    python3 dashboard.py
    ```
 3. Open `http://localhost:5000` in your browser.
@@ -64,9 +65,10 @@ cd BotFury
 ---
 
 ## 🔧 How to Use
-1. **Launch Multiple Bots**  
+1. **Launch Multiple Bots**
    - Use the Flask web dashboard to start multiple bot instances.
-   - Assign randomized names or manually set them.
+   - Assign randomized names or manually set them. The included Python example
+     spawns lightweight dummy bots to demonstrate the workflow.
   
 2. **Connect to a Minecraft Server**  
    - Select a server IP from the dashboard and press “Connect.”

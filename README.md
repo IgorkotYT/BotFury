@@ -74,6 +74,7 @@ binaries\unpack_all.bat
 1. **Launch Multiple Bots**
    - Use the Flask web dashboard to start multiple bot instances running the Fabric mod.
    - Assign randomized names or manually set them.
+
   
 2. **Connect to a Minecraft Server**  
    - Select a server IP from the dashboard and press “Connect.”

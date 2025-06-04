@@ -29,6 +29,7 @@ for line in sys.stdin:
     elif line == "toggle_render":
         print(f"[Bot {args.bot_id}] <toggle_render>")
         sys.stdout.flush()
+
     else:
         print(f"[Bot {args.bot_id}] Received command: {line}")
         sys.stdout.flush()

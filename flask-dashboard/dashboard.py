@@ -84,5 +84,6 @@ def mine():
     send_discord_webhook(f"mine {target}")
     return jsonify({"status": f"Mining {target}"})
 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

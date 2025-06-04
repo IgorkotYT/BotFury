@@ -41,6 +41,10 @@ Ensure you have the following installed:
 ```bash
 git clone https://github.com/IgorkotYT/BotFury.git
 cd BotFury
+# Recreate the precompiled jar and Gradle wrapper
+./binaries/unpack_all.sh   # on Linux/macOS
+:: or on Windows
+binaries\unpack_all.bat
 ```
 
 ### 📦 Setting Up the Mod (Fabric)
@@ -52,6 +56,7 @@ cd BotFury
    ```
    The jar will be in `minecraft-bots/botfury-mod/build/libs/`.
 3. Copy the jar into your Fabric instance's `mods/` directory.
+
 ### 🌐 Setting Up the Web Dashboard
 1. Install dependencies:
    ```bash
@@ -70,6 +75,7 @@ cd BotFury
 1. **Launch Multiple Bots**
    - Use the Flask web dashboard to start multiple bot instances running the Fabric mod.
    - Assign randomized names or manually set them.
+
   
 2. **Connect to a Minecraft Server**  
    - Select a server IP from the dashboard and press “Connect.”

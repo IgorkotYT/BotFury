@@ -76,5 +76,14 @@ def send_chat():
     send_discord_webhook(f"chat {chat_message}")
     return jsonify({"status": "Chat message broadcast"})
 
+@app.route("/mine", methods=["POST"])
+def mine():
+    target = request.json.get("target", "diamond_ore")
+    for bot_id in range(1, 4):
+        bot_manager.send_command(bot_id, f"mine {target}")
+    send_discord_webhook(f"mine {target}")
+    return jsonify({"status": f"Mining {target}"})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

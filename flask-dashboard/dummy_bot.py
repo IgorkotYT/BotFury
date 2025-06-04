@@ -18,6 +18,18 @@ for line in sys.stdin:
         print(f"[Bot {args.bot_id}] Stopping")
         sys.stdout.flush()
         break
+    elif line.startswith("chat "):
+        msg = line[5:]
+        print(f"[Bot {args.bot_id}] <chat> {msg}")
+        sys.stdout.flush()
+    elif line.startswith("mine "):
+        target = line[5:]
+        print(f"[Bot {args.bot_id}] <baritone mine> {target}")
+        sys.stdout.flush()
+    elif line == "toggle_render":
+        print(f"[Bot {args.bot_id}] <toggle_render>")
+        sys.stdout.flush()
+
     else:
         print(f"[Bot {args.bot_id}] Received command: {line}")
         sys.stdout.flush()

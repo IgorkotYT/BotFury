@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import requests
-from bot_manager import BotManager
+from bot_manager import BotManager, is_valid_hostname
 
 app = Flask(__name__)
 bot_manager = BotManager()
@@ -20,8 +20,11 @@ def get_bots():
 @app.route("/add_bot", methods=["POST"])
 def add_bot():
     global server_ip
-    bot_id = bot_manager.add_bot(server_ip)
-    return jsonify({"status": f"Bot {bot_id} added and starting", "bot_id": bot_id})
+    try:
+        bot_id = bot_manager.add_bot(server_ip)
+        return jsonify({"status": f"Bot {bot_id} added and starting", "bot_id": bot_id})
+    except ValueError as e:
+        return jsonify({"status": f"Error: {str(e)}"}), 400
 
 @app.route("/add_remote_bot", methods=["POST"])
 def add_remote_bot():
@@ -49,7 +52,10 @@ def send_command():
 @app.route("/set_server_ip", methods=["POST"])
 def set_server_ip():
     global server_ip
-    server_ip = request.json.get("server_ip", server_ip)
+    new_ip = request.json.get("server_ip", server_ip)
+    if not is_valid_hostname(new_ip):
+        return jsonify({"status": f"Error: Invalid server IP or hostname: {new_ip}"}), 400
+    server_ip = new_ip
     return jsonify({"status": f"Next bots will connect to {server_ip}"})
 
 if __name__ == "__main__":

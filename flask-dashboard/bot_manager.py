@@ -51,7 +51,13 @@ def is_valid_hostname(hostname: str) -> bool:
             socket.inet_pton(socket.AF_INET6, hostname[1:-1])
             return True
         except socket.error:
-            pass
+            return False
+
+    try:
+        socket.inet_pton(socket.AF_INET6, hostname)
+        return True
+    except socket.error:
+        pass
 
     # Check IPv4
     try:

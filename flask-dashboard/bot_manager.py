@@ -2,6 +2,7 @@ import subprocess
 import os
 import requests
 import json
+import re
 import urllib.parse
 from typing import Dict, Optional, List
 import socket
@@ -38,12 +39,15 @@ def load_config():
         return default_config
 
 def is_valid_hostname(hostname: str) -> bool:
-    if not hostname:
+    if not hostname or not isinstance(hostname, str) or len(hostname) > 255:
         return False
 
     # Remove port if present
     if ':' in hostname and not hostname.startswith('['):
         hostname = hostname.split(':')[0]
+
+    if hostname[-1] == ".":
+        hostname = hostname[:-1]
 
     # Check IPv6
     if hostname.startswith('[') and hostname.endswith(']'):
@@ -66,17 +70,15 @@ def is_valid_hostname(hostname: str) -> bool:
     except socket.error:
         pass
 
-    # Check hostname
-    if len(hostname) > 255:
-        return False
-    if hostname[-1] == ".":
-        hostname = hostname[:-1] # strip exactly one dot from the right, if present
+    # Hostname check
     allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
     return all(allowed.match(x) for x in hostname.split("."))
 
 class BotProcess:
     def __init__(self, bot_id: int, server_ip: str, port: int, name: str, is_remote: bool = False):
         self.bot_id = bot_id
+        if not is_remote and not is_valid_hostname(server_ip):
+            raise ValueError(f"Invalid server IP or hostname: {server_ip}")
         self.server_ip = server_ip
         self.port = port
         self.name = name

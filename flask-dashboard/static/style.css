@@ -1,54 +1,184 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --primary: #bb86fc;
+    --secondary: #03dac6;
+    --error: #cf6679;
+    --accent: #3700b3;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #222;
-    color: #eee;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #444;
-    padding: 20px;
-    text-align: center;
+    background-color: var(--card-bg);
+    padding: 10px 40px;
+    border-bottom: 1px solid #333;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
-.container {
-    width: 80%;
-    margin: 20px auto;
+.status-bar {
+    font-size: 0.9rem;
+}
+
+.status-bar input {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    border-bottom: 1px dashed var(--primary);
+    cursor: pointer;
+}
+
+.main-container {
+    display: flex;
     padding: 20px;
-    background-color: #333;
+    gap: 20px;
+}
+
+.controls {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section {
+    background: var(--card-bg);
+    padding: 15px;
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--secondary);
+}
+
+.input-group {
+    display: flex;
+    gap: 5px;
 }
 
 input[type="text"] {
-    padding: 8px;
-    width: 60%;
-    border: none;
+    flex-grow: 1;
+    background: #2c2c2c;
+    border: 1px solid #444;
     border-radius: 4px;
-    margin-right: 10px;
+    color: white;
+    padding: 5px 10px;
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
     cursor: pointer;
-    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+    transition: background 0.2s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    filter: brightness(1.2);
 }
 
-.bot {
-    background-color: #444;
-    padding: 10px;
+button.primary {
+    background: var(--primary);
+    color: black;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+button.secondary {
+    background: #333;
+    color: white;
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.bot-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    align-content: flex-start;
+}
+
+.bot-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 1px solid #333;
+    position: relative;
+}
+
+.bot-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.bot-info {
+    font-size: 0.85rem;
     margin: 10px 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 2px 6px;
     border-radius: 4px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+.status-badge.running { background: #2e7d32; color: white; }
+.status-badge.stopped { background: #c62828; color: white; }
+
+.bot-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bot-controls button {
+    background: #444;
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+.bot-controls .stop-btn {
+    background: var(--error);
+}
+
+.bot-card .port-info {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.7rem;
+    color: #666;
 }

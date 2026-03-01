@@ -1,53 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bot Command Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BotFury - Command Center</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Bot Command Center</h1>
+        <div class="header-content">
+            <h1>🌀 BotFury</h1>
+            <div class="status-bar">
+                <span>Next Server: <input type="text" id="serverIP" value="{{ server_ip }}" onchange="changeServerIP()"></span>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <section>
-            <h2>Send Custom Webhook Command</h2>
-            <input type="text" id="webhookMessage" placeholder="Enter custom command...">
-            <button onclick="sendWebhook()">Send Command</button>
-        </section>
-
-        <section>
-            <h2>Toggle Rendering</h2>
-            <button onclick="toggleRender()">Toggle Render</button>
-        </section>
-
-        <section>
-            <h2>Change Server IP</h2>
-            <input type="text" id="serverIP" value="{{ server_ip }}">
-            <button onclick="changeServerIP()">Set Server IP</button>
-        </section>
-
-        <section>
-            <h2>Bot Controls</h2>
-            <div>
-                {% for bot in bots %}
-                <div class="bot">
-                    <p><strong>{{ bot.name }}</strong> – Status: {{ bot.status }}</p>
-                    <button onclick="startBot({{ bot.id }})">Start</button>
-                    <button onclick="stopBot({{ bot.id }})">Stop</button>
+    <div class="main-container">
+        <aside class="controls">
+            <section>
+                <h2>Global Actions</h2>
+                <button class="primary" onclick="addBot()">Add New Bot Instance</button>
+                <div class="input-group" style="margin-top: 10px;">
+                    <input type="text" id="remotePort" placeholder="Port (e.g., 8765)">
+                    <button onclick="addRemoteBot()">Add Remote Bot</button>
                 </div>
-                {% endfor %}
-            </div>
-        </section>
+                <button class="secondary" style="margin-top: 10px;" onclick="sendCommand('all', 'toggle_render')">Toggle All Render</button>
+            </section>
 
-        <section>
-            <h2>Send Chat Message</h2>
-            <input type="text" id="chatMessage" placeholder="Enter chat message...">
-            <button onclick="sendChat()">Send Chat</button>
-        </section>
+            <section>
+                <h2>Broadcast Chat</h2>
+                <div class="input-group">
+                    <input type="text" id="broadcastChat" placeholder="Type a message or Baritone command...">
+                    <button onclick="broadcastChat()">Send</button>
+                </div>
+                <small>Prefix with # for Baritone (e.g., #mine diamond_ore)</small>
+            </section>
+
+            <section>
+                <h2>Quick Tasks</h2>
+                <div class="grid">
+                    <button onclick="sendCommand('all', 'chat:#mine diamond_ore')">Mine Diamond</button>
+                    <button onclick="sendCommand('all', 'chat:#mine iron_ore')">Mine Iron</button>
+                    <button onclick="sendCommand('all', 'chat:#stop')">Stop Baritone</button>
+                    <button onclick="sendCommand('all', 'chat:#goto 0 64 0')">Goto Spawn</button>
+                </div>
+            </section>
+        </aside>
+
+        <main class="bot-grid" id="botGrid">
+            <!-- Bot cards will be injected here -->
+        </main>
     </div>
 
     <script src="/static/script.js"></script>
+    <script>
+        // Start polling for bot status
+        setInterval(refreshBots, 2000);
+        refreshBots();
+    </script>
 </body>
 </html>

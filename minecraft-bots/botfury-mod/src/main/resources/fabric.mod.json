@@ -3,13 +3,16 @@
   "id": "botfury",
   "version": "${version}",
   "name": "BotFury",
-  "description": "Minimal remote-control mod.",
+  "description": "Remote-controlled Minecraft bot mod.",
   "authors": ["BotFury"],
   "license": "MIT",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
-    "main": ["com.botfury.BotFuryMod"]
+    "client": ["com.botfury.BotFuryMod"]
   },
+  "mixins": [
+    "botfury.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.14.0",
     "fabric": "*",

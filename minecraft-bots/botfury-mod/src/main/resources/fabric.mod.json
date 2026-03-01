@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "botfury",
-  "version": "${version}",
+  "version": "0.1.0",
   "name": "BotFury",
   "description": "Remote-controlled Minecraft bot mod.",
   "authors": ["BotFury"],
@@ -15,7 +15,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.14.0",
-    "fabric": "*",
+    "fabric-api": "*",
     "minecraft": "1.20.1"
   }
 }

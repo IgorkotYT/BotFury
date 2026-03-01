@@ -3,6 +3,7 @@ name: BotFury CI/CD
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
   release:
@@ -13,6 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: |
+          pip install flask requests pytest
+
+      - name: Run Python tests
+        run: |
+          cd flask-dashboard
+          pytest -v
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -29,10 +44,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x minecraft-bots/botfury-mod/gradlew
 
-      - name: Build with Gradle
+      - name: Build with Gradle and test
         run: |
           cd minecraft-bots/botfury-mod
-          ./gradlew build
+          ./gradlew build test
 
       - name: Verify build artifact
         run: |
@@ -49,8 +64,10 @@ jobs:
 
   release:
     needs: build
-    if: github.event_name == 'release'
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
@@ -58,12 +75,9 @@ jobs:
           name: botfury-jar
           path: .
 
-      - name: Upload to Release
-        uses: actions/upload-release-asset@v1
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: botfury-0.1.0.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: botfury-0.1.0.jar
-          asset_name: botfury-0.1.0.jar
-          asset_content_type: application/java-archive

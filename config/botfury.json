@@ -1,0 +1,12 @@
+{
+    "max_bot_instances": 10,
+    "default_bot_names": [
+        "Bot01",
+        "Bot02",
+        "Bot03"
+    ],
+    "rendering_settings": {
+        "enabled": true
+    },
+    "webhook_url": ""
+}

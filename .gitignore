@@ -2,3 +2,5 @@ minecraft-bots/botfury-mod/gradle/wrapper/gradle-wrapper.jar
 binaries/
 minecraft-bots/botfury-mod/build/
 minecraft-bots/botfury-mod/.gradle/
+__pycache__/
+*.pyc

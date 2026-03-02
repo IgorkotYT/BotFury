@@ -9,6 +9,10 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = 'botfury'
 version = '0.1.0'
 
+base {
+    archivesName = 'botfury'
+}
+
 def minecraftVersion = '1.20.1'
 
 repositories {

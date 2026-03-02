@@ -50,11 +50,15 @@ binaries\unpack_all.bat
 ### 📦 Setting Up the Mod (Fabric)
 
 1. Install **Fabric API** and **Baritone for Fabric** in your `mods/` folder.
-2. Download `botfury-0.1.0.jar` from the [GitHub Releases](https://github.com/IgorkotYT/BotFury/releases) page **or** build it locally:
+2. Download `botfury-0.1.0.jar` from the [GitHub Releases](https://github.com/IgorkotYT/BotFury/releases) page **or** build it locally using the provided scripts:
    ```bash
-   gradle -p minecraft-bots/botfury-mod build
+   # On Linux/macOS
+   ./build_mod.sh
+
+   :: On Windows
+   build_mod.bat
    ```
-   The jar will be in `minecraft-bots/botfury-mod/build/libs/`.
+   The generated jar will be in `minecraft-bots/botfury-mod/build/libs/botfury-0.1.0.jar`.
 3. Copy the jar into your Fabric instance's `mods/` directory.
 
 ### 🌐 Setting Up the Web Dashboard

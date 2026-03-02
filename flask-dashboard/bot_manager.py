@@ -39,12 +39,15 @@ def load_config():
         return default_config
 
 def is_valid_hostname(hostname: str) -> bool:
-    if not hostname:
+    if not hostname or not isinstance(hostname, str) or len(hostname) > 255:
         return False
 
     # Remove port if present
     if ':' in hostname and not hostname.startswith('['):
         hostname = hostname.split(':')[0]
+
+    if hostname[-1] == ".":
+        hostname = hostname[:-1]
 
     # Check IPv6
     if hostname.startswith('[') and hostname.endswith(']'):
@@ -52,7 +55,13 @@ def is_valid_hostname(hostname: str) -> bool:
             socket.inet_pton(socket.AF_INET6, hostname[1:-1])
             return True
         except socket.error:
-            pass
+            return False
+
+    try:
+        socket.inet_pton(socket.AF_INET6, hostname)
+        return True
+    except socket.error:
+        pass
 
     # Check IPv4
     try:
@@ -61,11 +70,7 @@ def is_valid_hostname(hostname: str) -> bool:
     except socket.error:
         pass
 
-    # Check hostname
-    if len(hostname) > 255:
-        return False
-    if hostname[-1] == ".":
-        hostname = hostname[:-1] # strip exactly one dot from the right, if present
+    # Hostname check
     allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
     return all(allowed.match(x) for x in hostname.split("."))
 

@@ -88,3 +88,12 @@ def test_send_command_empty(client):
     assert response.status_code == 400
     data = response.get_json()
     assert "Failed: Command cannot be empty" in data["status"]
+
+def test_botprocess_send_command_error():
+    from unittest.mock import patch
+    from bot_manager import BotProcess
+    bot = BotProcess(bot_id=1, server_ip="127.0.0.1", port=8765, name="TestBot")
+    with patch('requests.get') as mock_get:
+        mock_get.side_effect = Exception("Mocked connection error")
+        result = bot.send_command("test")
+        assert result == "Command failed (bot unreachable)"

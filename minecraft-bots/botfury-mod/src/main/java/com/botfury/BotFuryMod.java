@@ -89,6 +89,14 @@ public class BotFuryMod implements ClientModInitializer {
         } else if (cmd.equals("toggle_render")) {
             renderEnabled = !renderEnabled;
             return "render toggled: " + renderEnabled;
+        } else if (cmd.startsWith("baritone:")) {
+            String bCmd = cmd.substring(9);
+            if (client.player != null) {
+                client.execute(() -> client.player.networkHandler.sendChatMessage("#" + bCmd));
+                return "baritone command sent: " + bCmd;
+            } else {
+                return "not in-game";
+            }
         } else if (cmd.startsWith("connect:")) {
             String ip = cmd.substring(8);
             client.execute(() -> {

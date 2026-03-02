@@ -38,7 +38,7 @@ cd minecraft-bots/botfury-mod
 ./gradlew remapJar --debug
 
 echo "Verifying Build Artifact..."
-ARTIFACT="build/libs/botfury-0.1.0.jar"
+ARTIFACT="build/devlibs/botfury-0.1.0-dev.jar"
 if [ ! -f "$ARTIFACT" ]; then
     echo "Build failed: JAR not found at $ARTIFACT"
     exit 1

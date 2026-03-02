@@ -74,27 +74,6 @@ def is_valid_hostname(hostname: str) -> bool:
     allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
     return all(allowed.match(x) for x in hostname.split("."))
 
-def is_valid_hostname(hostname):
-    if not hostname or not isinstance(hostname, str) or len(hostname) > 255:
-        return False
-    if hostname[-1] == ".":
-        hostname = hostname[:-1]
-
-    # IPv4 address check
-    ipv4_regex = re.compile(r"^(\d{1,3}\.){3}\d{1,3}$")
-    if ipv4_regex.match(hostname):
-        parts = hostname.split(".")
-        return all(0 <= int(p) <= 255 for p in parts)
-
-    # IPv6 address check (simplified)
-    if ":" in hostname:
-        ipv6_regex = re.compile(r"^[0-9a-fA-F:]+$")
-        return bool(ipv6_regex.match(hostname))
-
-    # Hostname check
-    allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
-    return all(allowed.match(x) for x in hostname.split("."))
-
 class BotProcess:
     def __init__(self, bot_id: int, server_ip: str, port: int, name: str, is_remote: bool = False):
         self.bot_id = bot_id
